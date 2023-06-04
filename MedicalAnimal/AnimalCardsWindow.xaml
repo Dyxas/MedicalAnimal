@@ -4,12 +4,15 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Class="MedicalAnimal.AnimalCardsWindow"
-        xmlns:local="clr-namespace:BindingApp"
+        xmlns:local="clr-namespace:MedicalAnimal"
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="AnimalCardsWindow" Height="450" Width="800">
+        x:Name="AnimalCardsWindowName"
+        Title="AnimalCardsWindow" Height="450" Width="800"
+        DataContext="{Binding ElementName=AnimalCardsWindowName, Path=.}">
     <Grid>
-        <DataGrid x:Name="AnimalCardsGrid" ItemsSource="{Binding }" DataContext="{Binding AnimalCards}" RowEditEnding="OnEditEnding" AutoGenerateColumns="False">
+        <DataGrid x:Name="AnimalCardsGrid" ItemsSource="{Binding AnimalCards}" RowEditEnding="OnEditEnding" AutoGenerateColumns="False">
+ 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding Id}"/>
                 <DataGridTextColumn Header="Рег. номер" Binding="{Binding RegistrationNumber}"/>
