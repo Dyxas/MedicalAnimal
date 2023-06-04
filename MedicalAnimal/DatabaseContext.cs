@@ -15,5 +15,6 @@ namespace MedicalAnimal
         }
 
         public DbSet<Models.ModelCardExample> CardsExample { get; set; }
+        public DbSet<Models.AnimalCard> AnimalCards { get; set; }
     }
 }
