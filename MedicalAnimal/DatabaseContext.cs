@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 
 namespace MedicalAnimal
 {
+
     internal class DatabaseContext : DbContext
     {
         public DatabaseContext() : base("DbConnectionString")
