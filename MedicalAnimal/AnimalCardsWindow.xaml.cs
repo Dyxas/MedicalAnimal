@@ -24,7 +24,6 @@ namespace MedicalAnimal
 
         private void OnEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-            var c = AnimalCardsGrid.Items[AnimalCardsGrid.Items.Count-1];
             var card = e.Row.Item as AnimalCard;
             controller.Add(card);
         }
