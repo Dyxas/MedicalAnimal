@@ -4,32 +4,35 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         x:Class="MedicalAnimal.AnimalCardsWindow"
-        xmlns:local="clr-namespace:BindingApp"
+        xmlns:local="clr-namespace:MedicalAnimal"
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
-        Title="AnimalCardsWindow" Height="450" Width="800">
+        x:Name="AnimalCardsWindowName"
+        Title="AnimalCardsWindow" Height="450" Width="800"
+        DataContext="{Binding ElementName=AnimalCardsWindowName, Path=.}">
     <Grid>
-        <DataGrid x:Name="AnimalCardsGrid" ItemsSource="{Binding }" DataContext="{Binding AnimalCards}" RowEditEnding="OnEditEnding" AutoGenerateColumns="False">
+        <DataGrid x:Name="AnimalCardsGrid" ItemsSource="{Binding AnimalCards}" RowEditEnding="OnEditEnding" AutoGenerateColumns="False">
+ 
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" Binding="{Binding Id}"/>
-                <DataGridTextColumn Header="Рег. номер" Binding="{Binding RegistrationNumber}"/>
-                <DataGridTextColumn Header="Имя" Binding="{Binding Name}"/>
-                <DataGridTextColumn Header="Город" Binding="{Binding City}"/>
-                <DataGridTextColumn Header="Категория" Binding="{Binding Category}"/>
-                <DataGridTextColumn Header="Пол" Binding="{Binding Sex}"/>
+                <DataGridTextColumn Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Рег. номер" Binding="{Binding RegistrationNumber, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Имя" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Город" Binding="{Binding City, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Категория" Binding="{Binding Category, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Пол" Binding="{Binding Sex, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTemplateColumn Header="Дата рождения" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
-                            <TextBlock Text="{Binding Birthday, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" />
+                            <TextBlock Text="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                     <DataGridTemplateColumn.CellEditingTemplate>
                         <DataTemplate>
-                            <DatePicker SelectedDate="{Binding Birthday, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" />
+                            <DatePicker SelectedDate="{Binding Birthday, UpdateSourceTrigger=PropertyChanged, StringFormat=\{0:dd.MM.yy HH:mm:ss\}}" />
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Номер чипа" Binding="{Binding ChipId}"/>
+                <DataGridTextColumn Header="Номер чипа" Binding="{Binding ChipId, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
     </Grid>

@@ -12,19 +12,18 @@ namespace MedicalAnimal
     public partial class AnimalCardsWindow : Window
     {
         ICard<AnimalCard> controller;
-        ObservableCollection<AnimalCard> AnimalCards { get; set; }
+        public ObservableCollection<AnimalCard> AnimalCards { get; set; }
         public AnimalCardsWindow(ICard<AnimalCard> controller)
         {
             this.controller = controller;
             InitializeComponent();
             AnimalCards = controller.GetObservableList("", "");
-
+            AnimalCardsGrid.ItemsSource = AnimalCards;
         }
 
 
         private void OnEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-            var c = AnimalCardsGrid.Items[AnimalCardsGrid.Items.Count-1];
             var card = e.Row.Item as AnimalCard;
             controller.Add(card);
         }
