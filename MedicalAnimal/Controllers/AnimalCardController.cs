@@ -26,11 +26,13 @@ namespace MedicalAnimal.Controllers
         public void Delete(AnimalCard card)
         {
             db.AnimalCards.Remove(card);
+            db.SaveChanges();
         }
 
         public void Edit(AnimalCard card)
         {
             db.AnimalCards.Attach(card);
+            db.Entry(card).State = EntityState.Modified;
             db.SaveChanges();
         }
 
