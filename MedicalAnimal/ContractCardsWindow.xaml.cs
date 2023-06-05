@@ -11,7 +11,7 @@ namespace MedicalAnimal
     /// <summary>
     /// Логика взаимодействия для ContractCardWindow.xaml
     /// </summary>
-    public partial class ContractCardsWindow : Window
+    public partial class ContractCardsWindow : Page
     {
         ICard<ContractCard> controller;
         public ObservableCollection<ContractCard> ContractCards { get; set; }

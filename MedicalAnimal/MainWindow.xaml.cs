@@ -25,11 +25,7 @@ namespace MedicalAnimal
         public MainWindow()
         {
             InitializeComponent();
-            var frame = Content as Frame;
-            if (frame.Content == null)
-            {
-                frame.Navigate(App.serviceProvider.GetService<AnimalCardsWindow>());
-            }
+            CardsFrame.Navigate(App.serviceProvider.GetService<AnimalCardsWindow>());
         }
         
 
@@ -37,6 +33,19 @@ namespace MedicalAnimal
         {
          
 
+        }
+
+        private void OnAnimalClick(object sender, RoutedEventArgs e)
+        {
+            CardsFrame.Navigate(App.serviceProvider.GetService<AnimalCardsWindow>());
+        }
+        private void OnOrganizationClick(object sender, RoutedEventArgs e)
+        {
+            CardsFrame.Navigate(App.serviceProvider.GetService<OrganizationCardsWindow>());
+        }
+        private void OnContractsClick(object sender, RoutedEventArgs e)
+        {
+            CardsFrame.Navigate(App.serviceProvider.GetService<ContractCardsWindow>());
         }
     }
 }

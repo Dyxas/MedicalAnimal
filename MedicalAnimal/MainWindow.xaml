@@ -6,7 +6,14 @@
         xmlns:local="clr-namespace:MedicalAnimal"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
-    <Frame x:Name="Frame" Content="Frame">
-    </Frame>
+    <StackPanel>
+        <StackPanel Orientation="Horizontal">
+            <Button Content="Животные" Click="OnAnimalClick"></Button>
+            <Button Content="Организации" Click="OnOrganizationClick"></Button>
+            <Button Content="Контракты" Click="OnContractsClick"></Button>
+        </StackPanel>
+       <Frame x:Name="CardsFrame" Content="Frame" NavigationUIVisibility="Hidden">
+        </Frame>
+    </StackPanel>
 
 </Window>
