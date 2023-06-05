@@ -9,25 +9,25 @@ using System.Windows.Controls;
 namespace MedicalAnimal
 {
     /// <summary>
-    /// Логика взаимодействия для AnimalCardsWindow.xaml
+    /// Логика взаимодействия для ContractCardWindow.xaml
     /// </summary>
-    public partial class AnimalCardsWindow : Window
+    public partial class ContractCardsWindow : Window
     {
-        ICard<AnimalCard> controller;
-        public ObservableCollection<AnimalCard> AnimalCards { get; set; }
-        public AnimalCardsWindow(ICard<AnimalCard> controller)
+        ICard<ContractCard> controller;
+        public ObservableCollection<ContractCard> ContractCards { get; set; }
+        public ContractCardsWindow(ICard<ContractCard> controller)
         {
             this.controller = controller;
             InitializeComponent();
-            AnimalCards = controller.GetObservableList("", "");
-            AnimalCardsGrid.ItemsSource = AnimalCards;
+            ContractCards = controller.GetObservableList("", "");
+            ContractCardsGrid.ItemsSource = ContractCards;
         }
 
 
         private void OnEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-            var card = e.Row.Item as AnimalCard;
-            if (controller.GetList("", "").Count == AnimalCards.Count)
+            var card = e.Row.Item as ContractCard;
+            if (controller.GetList("","").Count == ContractCards.Count)
             {
                 controller.Edit(card);
             }
@@ -44,11 +44,11 @@ namespace MedicalAnimal
                 var messageBoxResult = MessageBox.Show("Вы уверены, что хотите удалить?", "Удалить", MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    AnimalCard[] items = new AnimalCard[AnimalCardsGrid.SelectedItems.Count];
-                    AnimalCardsGrid.SelectedItems.CopyTo(items, 0);
+                    ContractCard[] items = new ContractCard[ContractCardsGrid.SelectedItems.Count];
+                    ContractCardsGrid.SelectedItems.CopyTo(items, 0);
                     foreach (var item in items)
                     {
-                        controller.Delete(item as AnimalCard);
+                        controller.Delete(item as ContractCard);
                     }
                 }
                 e.Handled = true;

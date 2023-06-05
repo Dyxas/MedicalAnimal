@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace MedicalAnimal
 {
+    /// <summary>
+    /// Про миграции https://metanit.com/sharp/entityframework/3.12.php
+    /// </summary>
     internal class DatabaseContext : DbContext
     {
         public DatabaseContext() : base("DbConnectionString")
@@ -16,5 +19,7 @@ namespace MedicalAnimal
 
         public DbSet<Models.ModelCardExample> CardsExample { get; set; }
         public DbSet<Models.AnimalCard> AnimalCards { get; set; }
+        public DbSet<Models.OrganizationCard> OrganizationCards{ get; set; }
+        public DbSet<Models.ContractCard> ContractCards{ get; set; }
     }
 }

@@ -9,25 +9,25 @@ using System.Windows.Controls;
 namespace MedicalAnimal
 {
     /// <summary>
-    /// Логика взаимодействия для AnimalCardsWindow.xaml
+    /// Логика взаимодействия для OrganizationCardsWindow.xaml
     /// </summary>
-    public partial class AnimalCardsWindow : Window
+    public partial class OrganizationCardsWindow : Window
     {
-        ICard<AnimalCard> controller;
-        public ObservableCollection<AnimalCard> AnimalCards { get; set; }
-        public AnimalCardsWindow(ICard<AnimalCard> controller)
+        ICard<OrganizationCard> controller;
+        public ObservableCollection<OrganizationCard> OrganizationCards { get; set; }
+        public OrganizationCardsWindow(ICard<OrganizationCard> controller)
         {
             this.controller = controller;
             InitializeComponent();
-            AnimalCards = controller.GetObservableList("", "");
-            AnimalCardsGrid.ItemsSource = AnimalCards;
+            OrganizationCards = controller.GetObservableList("", "");
+            OrganizationCardsGrid.ItemsSource = OrganizationCards;
         }
 
 
         private void OnEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
-            var card = e.Row.Item as AnimalCard;
-            if (controller.GetList("", "").Count == AnimalCards.Count)
+            var card = e.Row.Item as OrganizationCard;
+            if (controller.GetList("","").Count == OrganizationCards.Count)
             {
                 controller.Edit(card);
             }
@@ -44,11 +44,11 @@ namespace MedicalAnimal
                 var messageBoxResult = MessageBox.Show("Вы уверены, что хотите удалить?", "Удалить", MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
                 {
-                    AnimalCard[] items = new AnimalCard[AnimalCardsGrid.SelectedItems.Count];
-                    AnimalCardsGrid.SelectedItems.CopyTo(items, 0);
+                    OrganizationCard[] items = new OrganizationCard[OrganizationCardsGrid.SelectedItems.Count];
+                    OrganizationCardsGrid.SelectedItems.CopyTo(items, 0);
                     foreach (var item in items)
                     {
-                        controller.Delete(item as AnimalCard);
+                        controller.Delete(item as OrganizationCard);
                     }
                 }
                 e.Handled = true;
