@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MedicalAnimal.Controllers
 {
-    class AnimalCardController : ICard<AnimalCard>
+    class AnimalCardController : ICard<AnimalCard>, IExport<AnimalCard>
     {
         DatabaseContext db;
         public AnimalCardController(DatabaseContext db)
@@ -34,6 +34,11 @@ namespace MedicalAnimal.Controllers
             db.AnimalCards.Attach(card);
             db.Entry(card).State = EntityState.Modified;
             db.SaveChanges();
+        }
+
+        public AnimalCard ExportExcel(AnimalCard card)
+        {
+            throw new NotImplementedException();
         }
 
         public AnimalCard Get(int id)

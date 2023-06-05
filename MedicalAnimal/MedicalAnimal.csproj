@@ -201,6 +201,10 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
+    <Page Include="OrganizationCardsWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="App.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -213,6 +217,18 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Compile Include="Migrations\202306041355164_InitialCreate.cs" />
+    <Compile Include="Migrations\202306041355164_InitialCreate.designer.cs">
+      <DependentUpon>202306041355164_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202306050816173_AddOrganizationCardMigration.cs" />
+    <Compile Include="Migrations\202306050816173_AddOrganizationCardMigration.designer.cs">
+      <DependentUpon>202306050816173_AddOrganizationCardMigration.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="OrganizationCardsWindow.xaml.cs">
+      <DependentUpon>OrganizationCardsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="AnimalCardsWindow.xaml.cs">
       <DependentUpon>AnimalCardsWindow.xaml</DependentUpon>
     </Compile>
@@ -220,15 +236,18 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="Controllers\OrganizationCardController.cs" />
     <Compile Include="Controllers\AnimalCardController.cs" />
     <Compile Include="Controllers\ICard.cs" />
     <Compile Include="DatabaseContext.cs" />
+    <Compile Include="IExport.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\OrganizationCard.cs" />
     <Compile Include="Models\AnimalCard.cs" />
     <Compile Include="Models\ModelCardExample.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -244,6 +263,12 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Migrations\202306041355164_InitialCreate.resx">
+      <DependentUpon>202306041355164_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306050816173_AddOrganizationCardMigration.resx">
+      <DependentUpon>202306050816173_AddOrganizationCardMigration.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
