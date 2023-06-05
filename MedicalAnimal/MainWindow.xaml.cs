@@ -1,4 +1,5 @@
 ﻿using MedicalAnimal.Models;
+using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,22 +25,27 @@ namespace MedicalAnimal
         public MainWindow()
         {
             InitializeComponent();
+            CardsFrame.Navigate(App.serviceProvider.GetService<AnimalCardsWindow>());
         }
+        
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-         // Test
-            using (var context = new DatabaseContext())
-            {
-                var modelExample = new ModelCardExample
-                {
-                    Id = 1,
-                    Name = "Test"
-                };
+         
 
-                context.CardsExample.Add(modelExample);
-            }
+        }
 
+        private void OnAnimalClick(object sender, RoutedEventArgs e)
+        {
+            CardsFrame.Navigate(App.serviceProvider.GetService<AnimalCardsWindow>());
+        }
+        private void OnOrganizationClick(object sender, RoutedEventArgs e)
+        {
+            CardsFrame.Navigate(App.serviceProvider.GetService<OrganizationCardsWindow>());
+        }
+        private void OnContractsClick(object sender, RoutedEventArgs e)
+        {
+            CardsFrame.Navigate(App.serviceProvider.GetService<ContractCardsWindow>());
         }
     }
 }

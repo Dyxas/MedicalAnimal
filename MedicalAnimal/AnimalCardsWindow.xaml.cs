@@ -11,10 +11,14 @@ namespace MedicalAnimal
     /// <summary>
     /// Логика взаимодействия для AnimalCardsWindow.xaml
     /// </summary>
-    public partial class AnimalCardsWindow : Window
+    public partial class AnimalCardsWindow : Page
     {
         ICard<AnimalCard> controller;
         public ObservableCollection<AnimalCard> AnimalCards { get; set; }
+        public AnimalCardsWindow()
+        {
+            InitializeComponent();
+        }
         public AnimalCardsWindow(ICard<AnimalCard> controller)
         {
             this.controller = controller;

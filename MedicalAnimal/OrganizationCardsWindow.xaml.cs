@@ -11,7 +11,7 @@ namespace MedicalAnimal
     /// <summary>
     /// Логика взаимодействия для OrganizationCardsWindow.xaml
     /// </summary>
-    public partial class OrganizationCardsWindow : Window
+    public partial class OrganizationCardsWindow : Page
     {
         ICard<OrganizationCard> controller;
         public ObservableCollection<OrganizationCard> OrganizationCards { get; set; }
