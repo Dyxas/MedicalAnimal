@@ -23,8 +23,10 @@ namespace MedicalAnimal
                 services.AddSingleton<DatabaseContext>();
                 services.AddTransient<ICard<AnimalCard>, AnimalCardController>(e => new AnimalCardController(e.GetService<DatabaseContext>()));
                 services.AddTransient<ICard<OrganizationCard>, OrganizationCardController>(e => new OrganizationCardController(e.GetService<DatabaseContext>()));
+                services.AddTransient<ICard<ContractCard>, ContractCardController>(e => new ContractCardController(e.GetService<DatabaseContext>()));
                 services.AddSingleton<AnimalCardsWindow>(e => new AnimalCardsWindow(e.GetService<ICard<AnimalCard>>()));
                 services.AddSingleton<OrganizationCardsWindow>(e => new OrganizationCardsWindow(e.GetService<ICard<OrganizationCard>>()));
+                services.AddSingleton<ContractCardsWindow>(e => new ContractCardsWindow(e.GetService<ICard<ContractCard>>()));
             }).Build();
             serviceProvider = host.Services;
             var app = serviceProvider.GetService<App>();
