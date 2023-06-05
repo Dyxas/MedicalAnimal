@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace MedicalAnimal.Controllers
 {
-    public interface ICard<T>
+    public interface ICard<T>: IExport<T>
     {
         T Get(int id);
         void Delete(T card);

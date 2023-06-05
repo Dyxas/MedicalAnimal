@@ -8,6 +8,6 @@ namespace MedicalAnimal
 {
     public interface IExport<T>
     {
-        T ExportExcel(T card);
+       void ExportExcel(T card);
     }
 }

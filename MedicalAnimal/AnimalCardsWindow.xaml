@@ -10,7 +10,12 @@
         x:Name="AnimalCardsWindowName"
         Title="AnimalCardsWindow" Height="450" Width="800"
         DataContext="{Binding ElementName=AnimalCardsWindowName, Path=.}">
-    <Grid>
+    <StackPanel>
+        <ToolBar>
+            <Button Content="Отчет" Click="OnReport">
+                
+            </Button>
+        </ToolBar>
         <DataGrid x:Name="AnimalCardsGrid" ItemsSource="{Binding AnimalCards}" RowEditEnding="OnEditEnding" AutoGenerateColumns="False" PreviewKeyDown="OnKeyDown">
  
             <DataGrid.Columns>
@@ -35,5 +40,5 @@
                 <DataGridTextColumn Header="Номер чипа" Binding="{Binding ChipId, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
-    </Grid>
+    </StackPanel>
 </Page>

@@ -2,6 +2,7 @@
 using MedicalAnimal.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using OfficeOpenXml;
 using System;
 using System.Windows;
 using System.Windows.Controls;
@@ -18,6 +19,7 @@ namespace MedicalAnimal
         public static void Main()
         {
 
+            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var host = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
                 services.AddSingleton<App>();

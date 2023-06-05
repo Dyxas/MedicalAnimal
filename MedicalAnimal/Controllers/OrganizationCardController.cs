@@ -1,4 +1,6 @@
 ﻿using MedicalAnimal.Models;
+using Microsoft.Win32;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -36,9 +38,30 @@ namespace MedicalAnimal.Controllers
             db.SaveChanges();
         }
 
-        public OrganizationCard ExportExcel(OrganizationCard card)
+        public void ExportExcel(OrganizationCard card)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var rows = GetList("", "");
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("Организации");
+                    worksheet.Cells[1, 1].LoadFromCollection(rows, true);
+                    var saveFileDialog = new SaveFileDialog
+                    {
+                        DefaultExt = "xlsx",
+                        FileName = @"%UserProfile%\Desktop\Report-" + DateTime.Now.ToString().Replace(':', '_').Replace('.', '_')
+                    };
+                    saveFileDialog.ShowDialog();
+                    var path = saveFileDialog.FileName;
+                    if (path != null)
+                    {
+                        package.SaveAs(path);
+                    }
+                }
+            }
+            catch (Exception ex) { }
+
         }
 
         public OrganizationCard Get(int id)

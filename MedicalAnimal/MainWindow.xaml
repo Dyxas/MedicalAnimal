@@ -12,8 +12,7 @@
             <Button Content="Организации" Click="OnOrganizationClick"></Button>
             <Button Content="Контракты" Click="OnContractsClick"></Button>
         </StackPanel>
-       <Frame x:Name="CardsFrame" Content="Frame" NavigationUIVisibility="Hidden">
+        <Frame x:Name="CardsFrame" Content="Frame" NavigationUIVisibility="Hidden">
         </Frame>
     </StackPanel>
-
 </Window>

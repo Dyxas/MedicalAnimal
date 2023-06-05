@@ -5,6 +5,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 
 namespace MedicalAnimal
 {
@@ -41,7 +42,7 @@ namespace MedicalAnimal
             }
         }
 
-        private void OnKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
+        private void OnKeyDown(object sender, KeyEventArgs e)
         {
             if (e.Key ==  System.Windows.Input.Key.Delete)
             {
@@ -57,6 +58,11 @@ namespace MedicalAnimal
                 }
                 e.Handled = true;
             }
+        }
+
+        private void OnReport(object sender, RoutedEventArgs e)
+        {
+            controller.ExportExcel(AnimalCardsGrid.SelectedItem as AnimalCard);
         }
     }
 }
