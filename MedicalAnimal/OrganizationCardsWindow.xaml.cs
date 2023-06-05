@@ -54,5 +54,9 @@ namespace MedicalAnimal
                 e.Handled = true;
             }
         }
+        private void OnReport(object sender, RoutedEventArgs e)
+        {
+            controller.ExportExcel(OrganizationCardsGrid.SelectedItem as OrganizationCard);
+        }
     }
 }

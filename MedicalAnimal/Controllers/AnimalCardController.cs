@@ -1,4 +1,6 @@
 ﻿using MedicalAnimal.Models;
+using Microsoft.Win32;
+using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -9,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace MedicalAnimal.Controllers
 {
-    class AnimalCardController : ICard<AnimalCard>, IExport<AnimalCard>
+    class AnimalCardController : ICard<AnimalCard>
     {
         DatabaseContext db;
         public AnimalCardController(DatabaseContext db)
@@ -36,9 +38,29 @@ namespace MedicalAnimal.Controllers
             db.SaveChanges();
         }
 
-        public AnimalCard ExportExcel(AnimalCard card)
+        public void ExportExcel(AnimalCard card)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var rows = GetList("", "");
+                using (var package = new ExcelPackage())
+                {
+                    var worksheet = package.Workbook.Worksheets.Add("Животные");
+                    worksheet.Cells[1, 1].LoadFromCollection(rows, true);
+                    var saveFileDialog = new SaveFileDialog
+                    {
+                        DefaultExt = "xlsx",
+                        FileName = @"%UserProfile%\Desktop\Report-" + DateTime.Now.ToString().Replace(':', '_').Replace('.', '_')
+                    };
+                    saveFileDialog.ShowDialog();
+                    var path = saveFileDialog.FileName;
+                    if(path != null)
+                    {
+                        package.SaveAs(path);
+                    }
+                }
+            } catch (Exception ex) { }
+            
         }
 
         public AnimalCard Get(int id)

@@ -11,7 +11,12 @@
         x:Name="OrganizationCardsWindowName"
         Title="OrganizationCardsWindow" Height="450" Width="800"
         DataContext="{Binding ElementName=OrganizationCardsWindowName, Path=.}">
-    <Grid>
+    <StackPanel>
+        <ToolBar>
+            <Button Content="Отчет" Click="OnReport">
+
+            </Button>
+        </ToolBar>
         <DataGrid x:Name="OrganizationCardsGrid" ItemsSource="{Binding OrganizationCards}" RowEditEnding="OnEditEnding" AutoGenerateColumns="False" PreviewKeyDown="OnKeyDown">
  
             <DataGrid.Columns>
@@ -24,5 +29,5 @@
                 <DataGridTextColumn Header="Владелец" Binding="{Binding OwnerType, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
-    </Grid>
+    </StackPanel>
 </Page>
