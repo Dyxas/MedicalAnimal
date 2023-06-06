@@ -1,5 +1,6 @@
 ﻿using MedicalAnimal.Controllers;
 using MedicalAnimal.Models;
+using MedicalAnimal.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using OfficeOpenXml;
@@ -18,7 +19,6 @@ namespace MedicalAnimal
         [STAThread]
         public static void Main()
         {
-
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
             var host = Host.CreateDefaultBuilder().ConfigureServices(services =>
             {
@@ -27,10 +27,14 @@ namespace MedicalAnimal
                 services.AddTransient<ICard<AnimalCard>, AnimalCardController>(e => new AnimalCardController(e.GetService<DatabaseContext>()));
                 services.AddTransient<ICard<OrganizationCard>, OrganizationCardController>(e => new OrganizationCardController(e.GetService<DatabaseContext>()));
                 services.AddTransient<ICard<ContractCard>, ContractCardController>(e => new ContractCardController(e.GetService<DatabaseContext>()));
+                services.AddTransient<ICard<InspectionCard>, InspectionCardController>(e => new InspectionCardController(e.GetService<DatabaseContext>()));
                 services.AddSingleton<MainWindow>();
+                services.AddSingleton<AuthorizationWindow>();
+                services.AddSingleton<InspectionCardsWindow>();
                 services.AddSingleton<AnimalCardsWindow>();
                 services.AddSingleton<OrganizationCardsWindow>();
                 services.AddSingleton<ContractCardsWindow>();
+                services.AddSingleton<UserController>();
             }).Build();
             serviceProvider = host.Services;
             var app = serviceProvider.GetService<App>();
@@ -39,8 +43,8 @@ namespace MedicalAnimal
         }
         private void OnStartup(object sender, StartupEventArgs e)
         {
-            var mainWindow = serviceProvider.GetService<MainWindow>();
-            mainWindow.Show();
+            var authorizationWindow = serviceProvider.GetService<AuthorizationWindow>();
+            authorizationWindow.Show();
         }
     }
 

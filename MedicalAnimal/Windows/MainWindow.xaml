@@ -11,6 +11,7 @@
             <Button Content="Животные" Click="OnAnimalClick"></Button>
             <Button Content="Организации" Click="OnOrganizationClick"></Button>
             <Button Content="Контракты" Click="OnContractsClick"></Button>
+            <Button Content="Запись об осмотре" Click="OnInspectionClick"></Button>
         </StackPanel>
         <Frame x:Name="CardsFrame" Content="Frame" NavigationUIVisibility="Hidden">
         </Frame>

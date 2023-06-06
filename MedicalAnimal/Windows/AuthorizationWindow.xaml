@@ -1,0 +1,17 @@
+﻿<Window x:Class="MedicalAnimal.Windows.AuthorizationWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MedicalAnimal.Windows"
+        mc:Ignorable="d"
+        Title="AuthorizationWindow" Height="450" Width="800">
+    <Grid>
+        <Button x:Name="loginButton" Content="Войти" HorizontalAlignment="Left" Margin="227,325,0,0" VerticalAlignment="Top" Height="43" Width="351" FontSize="20" Click="Login"/>
+        <TextBox x:Name="inputLogin" HorizontalAlignment="Left" Height="41" Margin="227,130,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="351"/>
+        <TextBox x:Name="inputPassword" HorizontalAlignment="Left" Height="41" Margin="227,217,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="351"/>
+        <Label Content="Логин" HorizontalAlignment="Left" Margin="227,98,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.578,0.547" FontFamily="Calibri" FontSize="18" Height="32"/>
+        <Label Content="Пароль&#xD;&#xA;" HorizontalAlignment="Left" Margin="227,185,0,0" VerticalAlignment="Top" RenderTransformOrigin="0.5,0.5" Width="129" FontSize="18" Height="32" FontFamily="Calibri"/>
+
+    </Grid>
+</Window>
