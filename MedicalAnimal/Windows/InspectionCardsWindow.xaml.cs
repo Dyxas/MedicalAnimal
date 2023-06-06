@@ -24,11 +24,12 @@ namespace MedicalAnimal
     {
         ICard<InspectionCard> controller;
         public ObservableCollection<InspectionCard> InspectionCards { get; set; }
+
         public InspectionCardsWindow(ICard<InspectionCard> controller)
         {
             this.controller = controller;
             InitializeComponent();
-            InspectionCards = controller.GetObservableList("", "");
+            InspectionCards = controller.GetObservableList("");
             InspectionCardsGrid.ItemsSource = InspectionCards;
         }
 
@@ -36,7 +37,7 @@ namespace MedicalAnimal
         private void OnEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             var card = e.Row.Item as InspectionCard;
-            if (controller.GetList("", "").Count == InspectionCards.Count)
+            if (controller.GetList("").Count == InspectionCards.Count)
             {
                 controller.Edit(card);
             }

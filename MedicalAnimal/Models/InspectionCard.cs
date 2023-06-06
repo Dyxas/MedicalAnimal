@@ -5,7 +5,7 @@ namespace MedicalAnimal.Models
     public class InspectionCard
     {
         public int Id { get; set; }
-        public AnimalCard Animal { get; set; }
+        public virtual AnimalCard Animal { get; set; }
         public string UniqueBehavior { get; set; }
         public string HealthStatus { get; set; }
         public float Temperature { get; set; }
@@ -20,8 +20,8 @@ namespace MedicalAnimal.Models
         public string SpecialistFullName { get; set; }
         public string SpecialistDegree { get; set; }
         public string Role { get; set; }
-        public OrganizationCard VetClinic { get; set; }
-        public ContractCard Contract { get; set; }
+        public virtual OrganizationCard VetClinic { get; set; }
+        public virtual ContractCard Contract { get; set; }
 
     }
 }
