@@ -43,7 +43,7 @@ namespace MedicalAnimal.Controllers
             //TODO:: Переделать
             try
             {
-                var rows = GetList("", "");
+                var rows = GetList("");
                 using (var package = new ExcelPackage())
                 {
                     var worksheet = package.Workbook.Worksheets.Add("Животные");
@@ -71,12 +71,12 @@ namespace MedicalAnimal.Controllers
 
         }
 
-        public List<InspectionCard> GetList(string filter, string order)
+        public List<InspectionCard> GetList(string filter)
         {
             return db.InspectionCards.ToList();
         }
 
-        public ObservableCollection<InspectionCard> GetObservableList(string filter, string order)
+        public ObservableCollection<InspectionCard> GetObservableList(string filter)
         {
             db.InspectionCards.Load();
             return db.InspectionCards.Local;
