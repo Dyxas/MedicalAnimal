@@ -12,7 +12,7 @@ namespace MedicalAnimal.Models
         public int Id { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        public RoleDTO Role { get; set; }
-        public OrganizationCard OrganizationCard { get; set; }
+        public virtual RoleDTO Role { get; set; }
+        public virtual OrganizationCard OrganizationCard { get; set; }
     }
 }

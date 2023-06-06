@@ -10,6 +10,8 @@
         x:Name="ÌnspectionCardsWindowName"
         Title="InspectionCardsWindow" Height="450" Width="800"
         DataContext="{Binding ElementName=ÌnspectionCardsWindowName, Path=.}">
+
+
     <StackPanel>
         <ToolBar>
             <Button Content="Отчет" Click="OnReport">
@@ -20,7 +22,7 @@
 
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Осмотренное животное" Binding="{Binding Animal, UpdateSourceTrigger=PropertyChanged}"/>
+                    <DataGridComboBoxColumn Header="Осмотренное животное" SelectedItemBinding="{Binding Animal, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding Source={StaticResource Animal}}"/>
                 <DataGridTextColumn Header="Особенности поведения" Binding="{Binding UniqueBehavior, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Состояние животного" Binding="{Binding HealthStatus, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Температура тела" Binding="{Binding Temperature, UpdateSourceTrigger=PropertyChanged}"/>
