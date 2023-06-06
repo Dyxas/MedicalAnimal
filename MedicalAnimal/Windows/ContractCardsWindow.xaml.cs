@@ -2,9 +2,11 @@
 using MedicalAnimal.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace MedicalAnimal
 {
@@ -19,7 +21,7 @@ namespace MedicalAnimal
         {
             this.controller = controller;
             InitializeComponent();
-            ContractCards = controller.GetObservableList("", "");
+            ContractCards = controller.GetObservableList("");
             ContractCardsGrid.ItemsSource = ContractCards;
         }
 
@@ -27,7 +29,11 @@ namespace MedicalAnimal
         private void OnEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             var card = e.Row.Item as ContractCard;
-            if (controller.GetList("","").Count == ContractCards.Count)
+            if (!ContractCardValidationRule.Validate(card).IsValid)
+            {
+                return;
+            }
+            if (controller.GetList("").Count == ContractCards.Count)
             {
                 controller.Edit(card);
             }
@@ -58,6 +64,71 @@ namespace MedicalAnimal
         private void OnReport(object sender, RoutedEventArgs e)
         {
             controller.ExportExcel(ContractCardsGrid.SelectedItem as ContractCard);
+        }
+
+        private void OnFilter(object sender, RoutedEventArgs e)
+        {
+            ContractCards.Clear();
+            float.TryParse(TextBoxPriceMin.Text, out var priceMin);
+            float.TryParse(TextBoxPriceMax.Text, out var priceMax);
+            var list = controller.GetList("").Where(item => {
+                return (priceMax != 0 && priceMin != 0 && item.Price <= priceMax && item.Price >= priceMin) ||
+                (priceMax != 0 && priceMin == 0 && item.Price <= priceMax) ||
+                (priceMin != 0 && priceMax == 0 && item.Price >= priceMin);
+            });
+            foreach (var item in list)
+            {
+                ContractCards.Add(item);
+            }
+        }
+
+        private void OnResetFilter(object sender, RoutedEventArgs e)
+        {
+            ContractCards.Clear();
+            var list = controller.GetList("");
+            foreach (var item in list)
+            {
+                ContractCards.Add(item);
+            }
+
+        }
+    }
+
+    public class ContractCardValidationRule : ValidationRule
+    {
+        public ContractCardValidationRule() { }
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            ContractCard card = (value as BindingGroup).Items[0] as ContractCard;
+            return Validate(card);
+        }
+        static public ValidationResult Validate(ContractCard card)
+        {
+            if (string.IsNullOrEmpty(card.Number))
+            {
+                return new ValidationResult(false, "Не указан номер");
+            }
+            if (card.Price <= 0)
+            {
+                return new ValidationResult(false, "Не указана цена");
+            }
+            if (card.StartDate == new DateTime())
+            {
+                return new ValidationResult(false, "Начальная дата не указана");
+            }
+            if (card.EndDate== new DateTime())
+            {
+                return new ValidationResult(false, "Конечная дата не указана");
+            }
+            if (string.IsNullOrEmpty(card.Customer))
+            {
+                return new ValidationResult(false, "Потребитель не указан");
+            }
+            if (string.IsNullOrEmpty(card.Executor))
+            {
+                return new ValidationResult(false, "Исполнитель не найден");
+            }
+            return ValidationResult.ValidResult;
         }
     }
 }

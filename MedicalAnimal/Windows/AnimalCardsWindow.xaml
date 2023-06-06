@@ -8,18 +8,64 @@
         xmlns:col="clr-namespace:System.Collections;assembly=mscorlib"
         mc:Ignorable="d"
         x:Name="AnimalCardsWindowName"
-        Title="AnimalCardsWindow" Height="450" Width="800"
+        Title="AnimalCardsWindow"
         DataContext="{Binding ElementName=AnimalCardsWindowName, Path=.}">
-    <StackPanel>
+    <StackPanel Orientation="Vertical" CanVerticallyScroll="True" CanHorizontallyScroll="True" ScrollViewer.CanContentScroll="True">
         <ToolBar>
-            <Button Content="Отчет" Click="OnReport">
-                
-            </Button>
+            <Button Content="Отчет" Click="OnReport"/>
         </ToolBar>
-        <DataGrid x:Name="AnimalCardsGrid" ItemsSource="{Binding AnimalCards}" RowEditEnding="OnEditEnding" AutoGenerateColumns="False" PreviewKeyDown="OnKeyDown">
- 
+        <Expander Header="Показать фильтр">
+            <StackPanel>
+                <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                    <TextBlock Margin="50,0,50,0">Город </TextBlock>
+                    <TextBox MinWidth="150" x:Name="TextBoxCity"/>
+                </StackPanel>
+                <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                    <TextBlock Margin="50,0,50,0">Пол</TextBlock>
+                    <TextBox MinWidth="150" x:Name="TextBoxSex"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,20">
+                    <Button Content="Очистить" Click="OnResetFilter" Margin="50,0,50,0"/>
+                    <Button Content="Показать" Click="OnFilter" Margin="0,0,50,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Expander>
+        <DataGrid x:Name="AnimalCardsGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  ItemsSource="{Binding AnimalCards}" RowEditEnding="OnEditEnding" AutoGenerateColumns="False" PreviewKeyDown="OnKeyDown" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
+            <DataGrid.RowValidationRules>
+                <local:AnimalCardValidationRule ValidationStep="UpdatedValue"/>
+            </DataGrid.RowValidationRules>
+
+            <DataGrid.RowValidationErrorTemplate>
+                <ControlTemplate>
+                    <Grid Margin="0,-2,0,-2"
+            ToolTip="{Binding RelativeSource={RelativeSource
+            FindAncestor, AncestorType={x:Type DataGridRow}},
+            Path=(Validation.Errors)[0].ErrorContent}">
+                        <Ellipse StrokeThickness="0" Fill="Red" 
+                          Width="30" 
+                          Height="30" />
+                        <TextBlock Text="!" FontSize="{TemplateBinding FontSize}" 
+                          FontWeight="Bold" Foreground="White" 
+                          HorizontalAlignment="Center"  />
+                    </Grid>
+                </ControlTemplate>
+            </DataGrid.RowValidationErrorTemplate>
+
+            <DataGrid.Resources>
+                <Style x:Key="errorStyle" TargetType="{x:Type TextBox}">
+                    <Setter Property="Padding" Value="-10"/>
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="Background" Value="Red"/>
+                            <Setter Property="ToolTip" 
+                Value="{Binding RelativeSource={RelativeSource Self},
+                  Path=(Validation.Errors)[0].ErrorContent}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn IsReadOnly="True" Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Рег. номер" Binding="{Binding RegistrationNumber, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Город" Binding="{Binding City, UpdateSourceTrigger=PropertyChanged}"/>
@@ -38,6 +84,18 @@
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
                 <DataGridTextColumn Header="Номер чипа" Binding="{Binding ChipId, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTemplateColumn Header="Фото" Width="SizeToCells">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Image Source="{Binding Picture}" Width="400" Height="300"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                    <DataGridTemplateColumn.CellEditingTemplate>
+                        <DataTemplate>
+                            <Button Content="Выбрать фото" Click="OnPickImage"></Button>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellEditingTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>
