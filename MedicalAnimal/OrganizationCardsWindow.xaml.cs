@@ -2,9 +2,11 @@
 using MedicalAnimal.Models;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 
 namespace MedicalAnimal
 {
@@ -19,7 +21,7 @@ namespace MedicalAnimal
         {
             this.controller = controller;
             InitializeComponent();
-            OrganizationCards = controller.GetObservableList("", "");
+            OrganizationCards = controller.GetObservableList("");
             OrganizationCardsGrid.ItemsSource = OrganizationCards;
         }
 
@@ -27,7 +29,11 @@ namespace MedicalAnimal
         private void OnEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             var card = e.Row.Item as OrganizationCard;
-            if (controller.GetList("","").Count == OrganizationCards.Count)
+            if (!OrganizationCardValidationRule.Validate(card).IsValid)
+            {
+                return;
+            }
+            if (controller.GetList("").Count == OrganizationCards.Count)
             {
                 controller.Edit(card);
             }
@@ -57,6 +63,68 @@ namespace MedicalAnimal
         private void OnReport(object sender, RoutedEventArgs e)
         {
             controller.ExportExcel(OrganizationCardsGrid.SelectedItem as OrganizationCard);
+        }
+
+        private void OnFilter(object sender, RoutedEventArgs e)
+        {
+            OrganizationCards.Clear();
+            var organizationType = TextBoxOrganizationType.Text;
+            var list = controller.GetList("").Where(item => {
+                return item.OrganizationType == organizationType;
+            });
+            foreach (var item in list)
+            {
+                OrganizationCards.Add(item);
+            }
+        }
+
+        private void OnResetFilter(object sender, RoutedEventArgs e)
+        {
+
+            OrganizationCards.Clear();
+            var list = controller.GetList("");
+            foreach (var item in list)
+            {
+                OrganizationCards.Add(item);
+            }
+        }
+    }
+
+    public class OrganizationCardValidationRule : ValidationRule
+    {
+        public OrganizationCardValidationRule() { }
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            OrganizationCard card = (value as BindingGroup).Items[0] as OrganizationCard;
+            return Validate(card);
+        }
+        static public ValidationResult Validate(OrganizationCard card)
+        {
+            if (string.IsNullOrEmpty(card.Kpp))
+            {
+                return new ValidationResult(false, "КПП не указан");
+            }
+            if (string.IsNullOrEmpty(card.Inn))
+            {
+                return new ValidationResult(false, "ИНН не указан");
+            }
+            if (string.IsNullOrEmpty(card.Address))
+            {
+                return new ValidationResult(false, "Адрес не указано");
+            }
+            if (string.IsNullOrEmpty(card.Name))
+            {
+                return new ValidationResult(false, "Название не указано");
+            }
+            if (string.IsNullOrEmpty(card.OwnerType))
+            {
+                return new ValidationResult(false, "Владелец не указан");
+            }
+            if (string.IsNullOrEmpty(card.OrganizationType))
+            {
+                return new ValidationResult(false, "Тип организации не указан");
+            }
+            return ValidationResult.ValidResult;
         }
     }
 }
