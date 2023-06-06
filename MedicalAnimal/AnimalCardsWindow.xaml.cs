@@ -1,10 +1,13 @@
 ﻿using MedicalAnimal.Controllers;
 using MedicalAnimal.Models;
+using Microsoft.Win32;
 using System;
 using System.Collections.ObjectModel;
+using System.Globalization;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Data;
 using System.Windows.Input;
 
 namespace MedicalAnimal
@@ -32,6 +35,10 @@ namespace MedicalAnimal
         private void OnEditEnding(object sender, DataGridRowEditEndingEventArgs e)
         {
             var card = e.Row.Item as AnimalCard;
+            if (!AnimalCardValidationRule.Validate(card).IsValid)
+            {
+                return;
+            }
             if (controller.GetList("", "").Count == AnimalCards.Count)
             {
                 controller.Edit(card);
@@ -63,6 +70,60 @@ namespace MedicalAnimal
         private void OnReport(object sender, RoutedEventArgs e)
         {
             controller.ExportExcel(AnimalCardsGrid.SelectedItem as AnimalCard);
+        }
+
+        private void OnPickImage(object sender, RoutedEventArgs e)
+        {
+            var dialog = new OpenFileDialog();
+            dialog.ShowDialog();
+            var path = dialog.FileName;
+            var card = AnimalCardsGrid.SelectedItem as AnimalCard;
+            if (path != null)
+            {
+                card.Picture = path;
+                controller.Edit(card);
+            }
+        }
+    }
+    public class AnimalCardValidationRule : ValidationRule
+    {
+        public AnimalCardValidationRule() { }  
+        public override ValidationResult Validate(object value, CultureInfo cultureInfo)
+        {
+            AnimalCard card = (value as BindingGroup).Items[0] as AnimalCard;
+            return Validate(card);
+        }
+        static public ValidationResult Validate(AnimalCard card)
+        {
+            if (string.IsNullOrEmpty(card.City))
+            {
+                return new ValidationResult(false, "Город не указан");
+            }
+            if (string.IsNullOrEmpty(card.Picture))
+            {
+                return new ValidationResult(false, "Картинки нет");
+            }
+            if (card.ChipId <= 0)
+            {
+                return new ValidationResult(false, "Номер чипа не задан");
+            }
+            if (card.Birthday == new DateTime())
+            {
+                return new ValidationResult(false, "Дата не указана");
+            }
+            if (string.IsNullOrEmpty(card.Name))
+            {
+                return new ValidationResult(false, "Имя не указано");
+            }
+            if (card.RegistrationNumber <= 0)
+            {
+                return new ValidationResult(false, "Номер регистрации не указан");
+            }
+            if (string.IsNullOrEmpty(card.Sex))
+            {
+                return new ValidationResult(false, "Пол не указан");
+            }
+            return ValidationResult.ValidResult;
         }
     }
 }
