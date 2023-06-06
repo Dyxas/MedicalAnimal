@@ -24,6 +24,7 @@ namespace MedicalAnimal
     {
         ICard<InspectionCard> controller;
         public ObservableCollection<InspectionCard> InspectionCards { get; set; }
+
         public InspectionCardsWindow(ICard<InspectionCard> controller)
         {
             this.controller = controller;
