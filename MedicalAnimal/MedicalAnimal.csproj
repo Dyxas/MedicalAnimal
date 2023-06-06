@@ -216,11 +216,15 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Page Include="ContractCardsWindow.xaml">
+    <Page Include="Windows\AuthorizationWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Windows\ContractCardsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="OrganizationCardsWindow.xaml">
+    <Page Include="Windows\OrganizationCardsWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -228,15 +232,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="AnimalCardsWindow.xaml">
+    <Page Include="Windows\AnimalCardsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="MainWindow.xaml">
+    <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
     <Compile Include="Controllers\ContractCardController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
+    <Compile Include="DTO\AuthFormDTO.cs" />
+    <Compile Include="DTO\RoleDTO.cs" />
     <Compile Include="Migrations\202306041355164_InitialCreate.cs" />
     <Compile Include="Migrations\202306041355164_InitialCreate.designer.cs">
       <DependentUpon>202306041355164_InitialCreate.cs</DependentUpon>
@@ -249,15 +257,23 @@
     <Compile Include="Migrations\202306050840110_AddContractCardMigration.designer.cs">
       <DependentUpon>202306050840110_AddContractCardMigration.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306060117153_UserAdd.cs" />
+    <Compile Include="Migrations\202306060117153_UserAdd.designer.cs">
+      <DependentUpon>202306060117153_UserAdd.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\ContractCard.cs" />
-    <Compile Include="ContractCardsWindow.xaml.cs">
+    <Compile Include="Models\User.cs" />
+    <Compile Include="Windows\AuthorizationWindow.xaml.cs">
+      <DependentUpon>AuthorizationWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\ContractCardsWindow.xaml.cs">
       <DependentUpon>ContractCardsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="OrganizationCardsWindow.xaml.cs">
+    <Compile Include="Windows\OrganizationCardsWindow.xaml.cs">
       <DependentUpon>OrganizationCardsWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="AnimalCardsWindow.xaml.cs">
+    <Compile Include="Windows\AnimalCardsWindow.xaml.cs">
       <DependentUpon>AnimalCardsWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="App.xaml.cs">
@@ -269,7 +285,7 @@
     <Compile Include="Controllers\ICard.cs" />
     <Compile Include="DatabaseContext.cs" />
     <Compile Include="IExport.cs" />
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
@@ -299,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202306050840110_AddContractCardMigration.resx">
       <DependentUpon>202306050840110_AddContractCardMigration.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306060117153_UserAdd.resx">
+      <DependentUpon>202306060117153_UserAdd.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>

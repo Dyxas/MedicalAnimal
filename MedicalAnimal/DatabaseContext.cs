@@ -14,12 +14,13 @@ namespace MedicalAnimal
     {
         public DatabaseContext() : base("DbConnectionString")
         {
-
+            Database.SetInitializer<DatabaseContext>(new DropCreateDatabaseIfModelChanges<DatabaseContext>());
         }
 
         public DbSet<Models.ModelCardExample> CardsExample { get; set; }
         public DbSet<Models.AnimalCard> AnimalCards { get; set; }
         public DbSet<Models.OrganizationCard> OrganizationCards{ get; set; }
         public DbSet<Models.ContractCard> ContractCards{ get; set; }
+        public DbSet<Models.User> Users { get; set; }
     }
 }
