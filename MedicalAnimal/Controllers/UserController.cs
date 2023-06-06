@@ -17,6 +17,7 @@ namespace MedicalAnimal.Controllers
         public bool Auth(AuthFormDTO authFormDTO) // TODO:: MD5 HASH
         {
             User user = db.Users.Where(a => a.Login == authFormDTO.Login && a.Password == authFormDTO.Password).FirstOrDefault();
+
             if (user != null)
             {
                 User = user;

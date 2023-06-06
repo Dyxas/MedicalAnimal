@@ -22,5 +22,7 @@ namespace MedicalAnimal
         public DbSet<Models.OrganizationCard> OrganizationCards{ get; set; }
         public DbSet<Models.ContractCard> ContractCards{ get; set; }
         public DbSet<Models.User> Users { get; set; }
+        public DbSet<DTO.RoleDTO> Roles { get; set; }
+        public DbSet<Models.InspectionCard> InspectionCards { get; set; }
     }
 }

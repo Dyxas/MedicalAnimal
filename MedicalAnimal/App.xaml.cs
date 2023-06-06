@@ -27,8 +27,10 @@ namespace MedicalAnimal
                 services.AddTransient<ICard<AnimalCard>, AnimalCardController>(e => new AnimalCardController(e.GetService<DatabaseContext>()));
                 services.AddTransient<ICard<OrganizationCard>, OrganizationCardController>(e => new OrganizationCardController(e.GetService<DatabaseContext>()));
                 services.AddTransient<ICard<ContractCard>, ContractCardController>(e => new ContractCardController(e.GetService<DatabaseContext>()));
+                services.AddTransient<ICard<InspectionCard>, InspectionCardController>(e => new InspectionCardController(e.GetService<DatabaseContext>()));
                 services.AddSingleton<MainWindow>();
                 services.AddSingleton<AuthorizationWindow>();
+                services.AddSingleton<InspectionCardsWindow>();
                 services.AddSingleton<AnimalCardsWindow>();
                 services.AddSingleton<OrganizationCardsWindow>();
                 services.AddSingleton<ContractCardsWindow>();

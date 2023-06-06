@@ -41,5 +41,10 @@ namespace MedicalAnimal
         {
             CardsFrame.Navigate(App.serviceProvider.GetService<ContractCardsWindow>());
         }
+
+        private void OnInspectionClick(object sender, RoutedEventArgs e)
+        {
+            CardsFrame.Navigate(App.serviceProvider.GetService<InspectionCardsWindow>());
+        }
     }
 }
