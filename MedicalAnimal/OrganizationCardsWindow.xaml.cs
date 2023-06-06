@@ -21,7 +21,7 @@ namespace MedicalAnimal
         {
             this.controller = controller;
             InitializeComponent();
-            OrganizationCards = controller.GetObservableList("", "");
+            OrganizationCards = controller.GetObservableList("");
             OrganizationCardsGrid.ItemsSource = OrganizationCards;
         }
 
@@ -33,7 +33,7 @@ namespace MedicalAnimal
             {
                 return;
             }
-            if (controller.GetList("","").Count == OrganizationCards.Count)
+            if (controller.GetList("").Count == OrganizationCards.Count)
             {
                 controller.Edit(card);
             }
@@ -63,6 +63,30 @@ namespace MedicalAnimal
         private void OnReport(object sender, RoutedEventArgs e)
         {
             controller.ExportExcel(OrganizationCardsGrid.SelectedItem as OrganizationCard);
+        }
+
+        private void OnFilter(object sender, RoutedEventArgs e)
+        {
+            OrganizationCards.Clear();
+            var organizationType = TextBoxOrganizationType.Text;
+            var list = controller.GetList("").Where(item => {
+                return item.OrganizationType == organizationType;
+            });
+            foreach (var item in list)
+            {
+                OrganizationCards.Add(item);
+            }
+        }
+
+        private void OnResetFilter(object sender, RoutedEventArgs e)
+        {
+
+            OrganizationCards.Clear();
+            var list = controller.GetList("");
+            foreach (var item in list)
+            {
+                OrganizationCards.Add(item);
+            }
         }
     }
 

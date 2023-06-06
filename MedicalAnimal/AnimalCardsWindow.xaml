@@ -12,10 +12,24 @@
         DataContext="{Binding ElementName=AnimalCardsWindowName, Path=.}">
     <StackPanel Orientation="Vertical" CanVerticallyScroll="True" CanHorizontallyScroll="True" ScrollViewer.CanContentScroll="True">
         <ToolBar>
-            <Button Content="Отчет" Click="OnReport">
-
-            </Button>
+            <Button Content="Отчет" Click="OnReport"/>
         </ToolBar>
+        <Expander Header="Показать фильтр">
+            <StackPanel>
+                <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                    <TextBlock Margin="50,0,50,0">Город </TextBlock>
+                    <TextBox MinWidth="150" x:Name="TextBoxCity"/>
+                </StackPanel>
+                <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                    <TextBlock Margin="50,0,50,0">Пол</TextBlock>
+                    <TextBox MinWidth="150" x:Name="TextBoxSex"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,20">
+                    <Button Content="Очистить" Click="OnResetFilter" Margin="50,0,50,0"/>
+                    <Button Content="Показать" Click="OnFilter" Margin="0,0,50,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Expander>
         <DataGrid x:Name="AnimalCardsGrid" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  ItemsSource="{Binding AnimalCards}" RowEditEnding="OnEditEnding" AutoGenerateColumns="False" PreviewKeyDown="OnKeyDown" ScrollViewer.CanContentScroll="True" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch">
             <DataGrid.RowValidationRules>
                 <local:AnimalCardValidationRule ValidationStep="UpdatedValue"/>

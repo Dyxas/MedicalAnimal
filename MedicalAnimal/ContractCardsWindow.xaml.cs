@@ -21,7 +21,7 @@ namespace MedicalAnimal
         {
             this.controller = controller;
             InitializeComponent();
-            ContractCards = controller.GetObservableList("", "");
+            ContractCards = controller.GetObservableList("");
             ContractCardsGrid.ItemsSource = ContractCards;
         }
 
@@ -33,7 +33,7 @@ namespace MedicalAnimal
             {
                 return;
             }
-            if (controller.GetList("","").Count == ContractCards.Count)
+            if (controller.GetList("").Count == ContractCards.Count)
             {
                 controller.Edit(card);
             }
@@ -64,6 +64,33 @@ namespace MedicalAnimal
         private void OnReport(object sender, RoutedEventArgs e)
         {
             controller.ExportExcel(ContractCardsGrid.SelectedItem as ContractCard);
+        }
+
+        private void OnFilter(object sender, RoutedEventArgs e)
+        {
+            ContractCards.Clear();
+            float.TryParse(TextBoxPriceMin.Text, out var priceMin);
+            float.TryParse(TextBoxPriceMax.Text, out var priceMax);
+            var list = controller.GetList("").Where(item => {
+                return (priceMax != 0 && priceMin != 0 && item.Price <= priceMax && item.Price >= priceMin) ||
+                (priceMax != 0 && priceMin == 0 && item.Price <= priceMax) ||
+                (priceMin != 0 && priceMax == 0 && item.Price >= priceMin);
+            });
+            foreach (var item in list)
+            {
+                ContractCards.Add(item);
+            }
+        }
+
+        private void OnResetFilter(object sender, RoutedEventArgs e)
+        {
+            ContractCards.Clear();
+            var list = controller.GetList("");
+            foreach (var item in list)
+            {
+                ContractCards.Add(item);
+            }
+
         }
     }
 

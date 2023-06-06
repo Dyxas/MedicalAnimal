@@ -13,7 +13,7 @@ namespace MedicalAnimal.Controllers
         void Delete(T card);
         void Add(T card);
         void Edit(T card);
-        List<T> GetList(string filter,string order);
-        ObservableCollection<T> GetObservableList(string filter, string order);
+        List<T> GetList(string filter);
+        ObservableCollection<T> GetObservableList(string filter);
     }
 }

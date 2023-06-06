@@ -42,7 +42,7 @@ namespace MedicalAnimal.Controllers
         {
             try
             {
-                var rows = GetList("", "");
+                var rows = GetList("");
                 using (var package = new ExcelPackage())
                 {
                     var worksheet = package.Workbook.Worksheets.Add("Животные");
@@ -70,12 +70,12 @@ namespace MedicalAnimal.Controllers
 
         }
 
-        public List<AnimalCard> GetList(string filter, string order)
+        public List<AnimalCard> GetList(string filter)
         {
             return db.AnimalCards.ToList();
         }
 
-        public ObservableCollection<AnimalCard> GetObservableList(string filter, string order)
+        public ObservableCollection<AnimalCard> GetObservableList(string filter)
         {
             db.AnimalCards.Load();
             return db.AnimalCards.Local;

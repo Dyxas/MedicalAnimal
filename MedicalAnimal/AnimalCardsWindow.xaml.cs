@@ -27,7 +27,7 @@ namespace MedicalAnimal
         {
             this.controller = controller;
             InitializeComponent();
-            AnimalCards = controller.GetObservableList("", "");
+            AnimalCards = controller.GetObservableList("");
             AnimalCardsGrid.ItemsSource = AnimalCards;
         }
 
@@ -39,7 +39,7 @@ namespace MedicalAnimal
             {
                 return;
             }
-            if (controller.GetList("", "").Count == AnimalCards.Count)
+            if (controller.GetList("").Count == AnimalCards.Count)
             {
                 controller.Edit(card);
             }
@@ -81,8 +81,32 @@ namespace MedicalAnimal
             if (path != null)
             {
                 card.Picture = path;
-                controller.Edit(card);
             }
+        }
+
+        private void OnFilter(object sender, RoutedEventArgs e)
+        {
+            AnimalCards.Clear();
+            var city = TextBoxCity.Text;
+            var sex = TextBoxSex.Text;
+            var list = controller.GetList("").Where(item => {
+                return (!string.IsNullOrEmpty(city) && item.City == city) || (!string.IsNullOrEmpty(sex) && item.Sex == sex);
+            });
+            foreach(var item in list)
+            {
+                AnimalCards.Add(item);
+            }
+        }
+
+        private void OnResetFilter(object sender, RoutedEventArgs e)
+        {
+            AnimalCards.Clear();
+            var list = controller.GetList("");
+            foreach (var item in list)
+            {
+                AnimalCards.Add(item);
+            }
+
         }
     }
     public class AnimalCardValidationRule : ValidationRule
