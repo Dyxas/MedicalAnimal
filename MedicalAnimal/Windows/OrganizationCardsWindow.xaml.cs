@@ -49,7 +49,7 @@ namespace MedicalAnimal
             {
                 return;
             }
-            if (controller.GetList("").Count == OrganizationCards.Count)
+            if (controller.GetList("").Any(c => c.Id == card.Id && card.Id != 0))
             {
                 controller.Edit(card);
             }

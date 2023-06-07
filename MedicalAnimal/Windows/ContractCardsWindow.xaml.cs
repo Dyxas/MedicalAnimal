@@ -51,7 +51,7 @@ namespace MedicalAnimal
             {
                 return;
             }
-            if (controller.GetList("").Any(c => c.Id==card.Id && card.Id != 0))
+            if (controller.GetList("").Any(c => c.Id == card.Id && card.Id != 0))
             {
                 controller.Edit(card);
             }
