@@ -13,11 +13,31 @@
 
 
     <StackPanel>
+        
         <ToolBar>
             <Button Content="Отчет" Click="OnReport">
 
             </Button>
+            <Button Content="Сформировать отчёт " Click="OnReportFilter">
+
+            </Button>
+            <TextBlock Margin="50,0,50,0">От</TextBlock>
+            <DatePicker MinWidth="150" x:Name="TextBoxDateOn"/>
+            <TextBlock Margin="50,0,50,0">По</TextBlock>
+            <DatePicker MinWidth="150" x:Name="TextBoxDateTo"/>
         </ToolBar>
+        <Expander Header="Показать фильтр">
+            <StackPanel>
+                <StackPanel Margin="0,20,0,0" Orientation="Horizontal">
+                    <TextBlock Margin="50,0,50,0">Требуется лечение</TextBlock>
+                    <CheckBox MinWidth="150" x:Name="TextBoxNeedHelp"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="0,20,0,20">
+                    <Button Content="Очистить" Click="OnResetFilter" Margin="50,0,50,0"/>
+                    <Button Content="Показать" Click="OnFilter" Margin="0,0,50,0"/>
+                </StackPanel>
+            </StackPanel>
+        </Expander>
         <DataGrid x:Name="InspectionCardsGrid" ItemsSource="{Binding InspectionCards}" RowEditEnding="OnEditEnding" AutoGenerateColumns="False" PreviewKeyDown="OnKeyDown">
 
             <DataGrid.RowValidationRules>

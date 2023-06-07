@@ -1,21 +1,14 @@
 ﻿using MedicalAnimal.Controllers;
 using MedicalAnimal.Models;
+using MedicalAnimal.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Shapes;
 
 namespace MedicalAnimal
 {
@@ -72,6 +65,42 @@ namespace MedicalAnimal
                 }
                 e.Handled = true;
             }
+        }
+
+        private void OnFilter(object sender, RoutedEventArgs e)
+        {
+            InspectionCards.Clear();
+            var needHelp = TextBoxNeedHelp.IsChecked;
+            var list = controller.GetList("").Where(item =>
+            {
+                return item.NeedHeal == needHelp;
+            });
+            foreach (var item in list)
+            {
+                InspectionCards.Add(item);
+            }
+        }
+
+        private void OnResetFilter(object sender, RoutedEventArgs e)
+        {
+
+            InspectionCards.Clear();
+            var list = controller.GetList("");
+            foreach (var item in list)
+            {
+                InspectionCards.Add(item);
+            }
+        }
+
+        private void OnReportFilter(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(TextBoxDateOn.Text) || string.IsNullOrEmpty(TextBoxDateTo.Text))
+            {
+                MessageBox.Show("Введите параметры даты");
+                return;
+            }
+
+            App.serviceProvider.GetService<ReportService>().GetReport(DateTime.Parse(TextBoxDateOn.Text), DateTime.Parse(TextBoxDateTo.Text));
         }
 
         private void OnReport(object sender, RoutedEventArgs e)

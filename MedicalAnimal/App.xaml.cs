@@ -1,5 +1,6 @@
 ﻿using MedicalAnimal.Controllers;
 using MedicalAnimal.Models;
+using MedicalAnimal.Services;
 using MedicalAnimal.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -33,6 +34,7 @@ namespace MedicalAnimal
                 services.AddSingleton<AnimalCardsWindow>(e => new AnimalCardsWindow(e.GetService<ICard<AnimalCard>>(), e.GetService<UserController>()));
                 services.AddSingleton<OrganizationCardsWindow>(e => new OrganizationCardsWindow(e.GetService<ICard<OrganizationCard>>(), e.GetService<UserController>()));
                 services.AddSingleton<ContractCardsWindow>(e => new ContractCardsWindow(e.GetService<ICard<ContractCard>>(), e.GetService<UserController>()));
+                services.AddSingleton<ReportService>();
                 services.AddSingleton<UserController>();
             }).Build();
             serviceProvider = host.Services;

@@ -222,6 +222,7 @@
       <DependentUpon>202306062105076_AddInspectionCard.cs</DependentUpon>
     </Compile>
     <Compile Include="Models\InspectionCard.cs" />
+    <Compile Include="Services\ReportService.cs" />
     <Compile Include="Windows\InspectionCardsWindow.xaml.cs">
       <DependentUpon>InspectionCardsWindow.xaml</DependentUpon>
     </Compile>

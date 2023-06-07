@@ -40,13 +40,12 @@ namespace MedicalAnimal.Controllers
 
         public void ExportExcel(InspectionCard card)
         {
-            //TODO:: Переделать
             try
             {
                 var rows = GetList("");
                 using (var package = new ExcelPackage())
                 {
-                    var worksheet = package.Workbook.Worksheets.Add("Животные");
+                    var worksheet = package.Workbook.Worksheets.Add("Инспекция");
                     worksheet.Cells[1, 1].LoadFromCollection(rows, true);
                     var saveFileDialog = new SaveFileDialog
                     {

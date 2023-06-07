@@ -116,7 +116,7 @@ namespace MedicalAnimal.Controllers
             {
                 Login = "test",
                 Password = "test",
-                Role = new RoleDTO { AnimalAccess = 0, ContractAccess = 2, InspectionAccess = 1, OrganizationAccess = 1, Name = "test" },
+                Role = new RoleDTO { AnimalAccess = 2, ContractAccess = 2, InspectionAccess = 2, OrganizationAccess = 2, Name = "test" },
                 OrganizationCard = new OrganizationCard { Name = "test", Inn = "232131", Address = "XXX" }
             });
             db.SaveChanges();
