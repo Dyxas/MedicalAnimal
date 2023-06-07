@@ -16,7 +16,7 @@ namespace MedicalAnimal.Services
         public void GetReport(DateTime start, DateTime end)
         {
             List<InspectionCard> cards = App.serviceProvider.GetService<DatabaseContext>().InspectionCards.Local.Where(a => a.Date >= start && a.Date <= end).ToList();
-            cards.GroupBy(g => g.Animal.City);
+            cards.GroupBy(g => g.VetClinic.City);
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("Данные по осмотру");
