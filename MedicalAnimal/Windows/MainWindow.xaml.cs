@@ -28,9 +28,12 @@ namespace MedicalAnimal
         public MainWindow()
         {
             InitializeComponent();
+         
         }
         internal MainWindow(UserController userController)
         {
+            App.serviceProvider.GetService<OrganizationCardsWindow>().BeginInit();
+            App.serviceProvider.GetService<ContractCardsWindow>().BeginInit();
             this.userController = userController;
             InitializeComponent();
             var animalAccess = userController.GetUserInfo().Role.AnimalAccess;
@@ -59,10 +62,6 @@ namespace MedicalAnimal
                 CardsFrame.Navigate(App.serviceProvider.GetService<ContractCardsWindow>());
             }
 
-        }
-            CardsFrame.Navigate(App.serviceProvider.GetService<AnimalCardsWindow>());
-            App.serviceProvider.GetService<OrganizationCardsWindow>().BeginInit();
-            App.serviceProvider.GetService<ContractCardsWindow>().BeginInit();
         }
 
         private void OnAnimalClick(object sender, RoutedEventArgs e)
