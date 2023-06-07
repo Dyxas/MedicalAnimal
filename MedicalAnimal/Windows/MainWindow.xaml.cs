@@ -60,6 +60,10 @@ namespace MedicalAnimal
             }
 
         }
+            CardsFrame.Navigate(App.serviceProvider.GetService<AnimalCardsWindow>());
+            App.serviceProvider.GetService<OrganizationCardsWindow>().BeginInit();
+            App.serviceProvider.GetService<ContractCardsWindow>().BeginInit();
+        }
 
         private void OnAnimalClick(object sender, RoutedEventArgs e)
         {

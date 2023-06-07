@@ -6,7 +6,6 @@ using Microsoft.Extensions.Hosting;
 using OfficeOpenXml;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace MedicalAnimal
 {
@@ -40,7 +39,6 @@ namespace MedicalAnimal
             var app = serviceProvider.GetService<App>();
             app.InitializeComponent();
             app.Run();
-
         }
         private void OnStartup(object sender, StartupEventArgs e)
         {

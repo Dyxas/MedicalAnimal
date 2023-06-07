@@ -20,19 +20,53 @@
         </ToolBar>
         <DataGrid x:Name="InspectionCardsGrid" ItemsSource="{Binding InspectionCards}" RowEditEnding="OnEditEnding" AutoGenerateColumns="False" PreviewKeyDown="OnKeyDown">
 
+            <DataGrid.RowValidationRules>
+                <local:InspectionCardValidationRule ValidationStep="UpdatedValue"/>
+            </DataGrid.RowValidationRules>
+
+            <DataGrid.RowValidationErrorTemplate>
+                <ControlTemplate>
+                    <Grid Margin="0,-2,0,-2"
+            ToolTip="{Binding RelativeSource={RelativeSource
+            FindAncestor, AncestorType={x:Type DataGridRow}},
+            Path=(Validation.Errors)[0].ErrorContent}">
+                        <Ellipse StrokeThickness="0" Fill="Red" 
+                          Width="30" 
+                          Height="30" />
+                        <TextBlock Text="!" FontSize="{TemplateBinding FontSize}" 
+                          FontWeight="Bold" Foreground="White" 
+                          HorizontalAlignment="Center"  />
+                    </Grid>
+                </ControlTemplate>
+            </DataGrid.RowValidationErrorTemplate>
+
+            <DataGrid.Resources>
+                <Style x:Key="errorStyle" TargetType="{x:Type TextBox}">
+                    <Setter Property="Padding" Value="-10"/>
+                    <Style.Triggers>
+                        <Trigger Property="Validation.HasError" Value="True">
+                            <Setter Property="Background" Value="Red"/>
+                            <Setter Property="ToolTip" 
+                Value="{Binding RelativeSource={RelativeSource Self},
+                  Path=(Validation.Errors)[0].ErrorContent}"/>
+                        </Trigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.Resources>
+            
             <DataGrid.Columns>
                 <DataGridTextColumn Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
-                    <DataGridComboBoxColumn Header="Осмотренное животное" SelectedItemBinding="{Binding Animal, UpdateSourceTrigger=PropertyChanged}"  ItemsSource="{Binding Source={StaticResource Animal}}"/>
+                <DataGridComboBoxColumn x:Name="animalList" Header="Осмотренное животное" DisplayMemberPath="Name" SelectedValueBinding="{Binding Animal}"/>
                 <DataGridTextColumn Header="Особенности поведения" Binding="{Binding UniqueBehavior, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Состояние животного" Binding="{Binding HealthStatus, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Температура тела" Binding="{Binding Temperature, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Кожные покровы" Binding="{Binding Skin, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Состояние шерсти" Binding="{Binding Skin, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Ранения, травмы и другие повреждения" Binding="{Binding Skin, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Требуется экстренная вет. помощь" Binding="{Binding Skin, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Диагноз" Binding="{Binding Skin, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Проведенные манипуляции" Binding="{Binding Skin, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Назначено лечение" Binding="{Binding Skin, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Состояние шерсти" Binding="{Binding FurStatus, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Ранения, травмы и другие повреждения" Binding="{Binding HealthDeviations, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Требуется экстренная вет. помощь" Binding="{Binding IsSerioslyInjured, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Диагноз" Binding="{Binding Diagnosis, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Проведенные манипуляции" Binding="{Binding CompletedOperations, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Назначено лечение" Binding="{Binding NeedHeal, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTemplateColumn Header="Дата осмотра" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
                         <DataTemplate>
@@ -45,10 +79,10 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellEditingTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="ФИО вет. специалиста" Binding="{Binding Skin, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Должность вет. специалиста" Binding="{Binding Skin, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Ветклиника, в которой проведён осмотр" Binding="{Binding Skin, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Муниципальный контракт" Binding="{Binding Skin, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="ФИО вет. специалиста" Binding="{Binding SpecialistFullName, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Должность вет. специалиста" Binding="{Binding SpecialistDegree, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridComboBoxColumn x:Name="vetList" Header="Ветклиника, в которой проведён осмотр" DisplayMemberPath="Name"  SelectedValueBinding="{Binding VetClinic, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridComboBoxColumn x:Name="contractList" Header="Муниципальный контракт" DisplayMemberPath="Number"  SelectedValueBinding="{Binding Contract, UpdateSourceTrigger=PropertyChanged}"/>
                 
             </DataGrid.Columns>
         </DataGrid>
