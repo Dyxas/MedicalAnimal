@@ -1,6 +1,5 @@
 ﻿using MedicalAnimal.Controllers;
 using MedicalAnimal.Models;
-using System;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -16,13 +15,30 @@ namespace MedicalAnimal
     public partial class OrganizationCardsWindow : Page
     {
         ICard<OrganizationCard> controller;
+        UserController UserController;
         public ObservableCollection<OrganizationCard> OrganizationCards { get; set; }
-        public OrganizationCardsWindow(ICard<OrganizationCard> controller)
+        internal OrganizationCardsWindow(ICard<OrganizationCard> controller, UserController userController)
         {
             this.controller = controller;
+            this.UserController = userController;
             InitializeComponent();
-            OrganizationCards = controller.GetObservableList("");
-            OrganizationCardsGrid.ItemsSource = OrganizationCards;
+            OrganizationCardsGrid.CanUserAddRows = false;
+            OrganizationCardsGrid.CanUserDeleteRows = false;
+            OrganizationCardsGrid.IsReadOnly = true;
+
+            var permissions = userController.GetUserInfo().Role.OrganizationAccess;
+            if (permissions >= 1)
+            {
+                OrganizationCards = controller.GetObservableList("");
+                OrganizationCardsGrid.ItemsSource = OrganizationCards;
+
+                if (permissions == 2)
+                {
+                    OrganizationCardsGrid.IsReadOnly = false;
+                    OrganizationCardsGrid.CanUserAddRows = true;
+                    OrganizationCardsGrid.CanUserDeleteRows = true;
+                }
+            }
         }
 
 
@@ -45,7 +61,7 @@ namespace MedicalAnimal
 
         private void OnKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key ==  System.Windows.Input.Key.Delete)
+            if (e.Key == System.Windows.Input.Key.Delete)
             {
                 var messageBoxResult = MessageBox.Show("Вы уверены, что хотите удалить?", "Удалить", MessageBoxButton.YesNo);
                 if (messageBoxResult == MessageBoxResult.Yes)
@@ -69,7 +85,8 @@ namespace MedicalAnimal
         {
             OrganizationCards.Clear();
             var organizationType = TextBoxOrganizationType.Text;
-            var list = controller.GetList("").Where(item => {
+            var list = controller.GetList("").Where(item =>
+            {
                 return item.OrganizationType == organizationType;
             });
             foreach (var item in list)

@@ -16,13 +16,31 @@ namespace MedicalAnimal
     public partial class ContractCardsWindow : Page
     {
         ICard<ContractCard> controller;
+        UserController UserController;
         public ObservableCollection<ContractCard> ContractCards { get; set; }
-        public ContractCardsWindow(ICard<ContractCard> controller)
+        internal ContractCardsWindow(ICard<ContractCard> controller, UserController userController)
         {
             this.controller = controller;
+            UserController = userController;
             InitializeComponent();
-            ContractCards = controller.GetObservableList("");
-            ContractCardsGrid.ItemsSource = ContractCards;
+
+            ContractCardsGrid.CanUserAddRows = false;
+            ContractCardsGrid.CanUserDeleteRows = false;
+            ContractCardsGrid.IsReadOnly = true;
+
+            var permissions = userController.GetUserInfo().Role.ContractAccess;
+            if (permissions >= 1)
+            {
+                ContractCards = controller.GetObservableList("");
+                ContractCardsGrid.ItemsSource = ContractCards;
+
+                if (permissions == 2)
+                {
+                    ContractCardsGrid.IsReadOnly = false;
+                    ContractCardsGrid.CanUserAddRows = true;
+                    ContractCardsGrid.CanUserDeleteRows = true;
+                }
+            }
         }
 
 

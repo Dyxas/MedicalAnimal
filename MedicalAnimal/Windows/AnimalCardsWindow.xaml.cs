@@ -18,17 +18,35 @@ namespace MedicalAnimal
     public partial class AnimalCardsWindow : Page
     {
         ICard<AnimalCard> controller;
+        UserController userController;
         public ObservableCollection<AnimalCard> AnimalCards { get; set; }
         public AnimalCardsWindow()
         {
             InitializeComponent();
         }
-        public AnimalCardsWindow(ICard<AnimalCard> controller)
+        internal AnimalCardsWindow(ICard<AnimalCard> controller, UserController userController)
         {
             this.controller = controller;
+            this.userController = userController;
             InitializeComponent();
-            AnimalCards = controller.GetObservableList("");
-            AnimalCardsGrid.ItemsSource = AnimalCards;
+
+            AnimalCardsGrid.CanUserAddRows = false;
+            AnimalCardsGrid.CanUserDeleteRows = false;
+            AnimalCardsGrid.IsReadOnly = true;
+
+            var permissions = userController.GetUserInfo().Role.AnimalAccess;
+            if (permissions >= 1)
+            {
+                AnimalCards = controller.GetObservableList("");
+                AnimalCardsGrid.ItemsSource = AnimalCards;
+
+                if (permissions == 2)
+                {
+                    AnimalCardsGrid.CanUserAddRows = true;
+                    AnimalCardsGrid.CanUserDeleteRows = true;
+                    AnimalCardsGrid.IsReadOnly = false;
+                }
+            }   
         }
 
 

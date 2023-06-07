@@ -1,4 +1,5 @@
-﻿using MedicalAnimal.Models;
+﻿using MedicalAnimal.Controllers;
+using MedicalAnimal.Models;
 using MedicalAnimal.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -23,10 +24,41 @@ namespace MedicalAnimal
     /// </summary>
     public partial class MainWindow : Window
     {
+        UserController userController;
         public MainWindow()
         {
             InitializeComponent();
-            CardsFrame.Navigate(App.serviceProvider.GetService<AnimalCardsWindow>());
+        }
+        internal MainWindow(UserController userController)
+        {
+            this.userController = userController;
+            InitializeComponent();
+            var animalAccess = userController.GetUserInfo().Role.AnimalAccess;
+            var organizationAccess = userController.GetUserInfo().Role.OrganizationAccess;
+            var contractAccess = userController.GetUserInfo().Role.ContractAccess;
+
+            if (animalAccess == 0)
+            {
+                AnimalButton.IsEnabled = false;
+            } else
+            {
+                CardsFrame.Navigate(App.serviceProvider.GetService<AnimalCardsWindow>());
+            }
+            if (organizationAccess == 0)
+            {
+                OrganizationButton.IsEnabled = false;
+            } else
+            {
+                CardsFrame.Navigate(App.serviceProvider.GetService<OrganizationCardsWindow>());
+            }
+            if (contractAccess == 0)
+            {
+                ContractButton.IsEnabled = false;
+            }else
+            {
+                CardsFrame.Navigate(App.serviceProvider.GetService<ContractCardsWindow>());
+            }
+
         }
 
         private void OnAnimalClick(object sender, RoutedEventArgs e)
