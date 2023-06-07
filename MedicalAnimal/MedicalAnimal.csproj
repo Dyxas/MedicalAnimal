@@ -221,6 +221,10 @@
     <Compile Include="Migrations\202306062105076_AddInspectionCard.designer.cs">
       <DependentUpon>202306062105076_AddInspectionCard.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202306071152373_UpdateContract.cs" />
+    <Compile Include="Migrations\202306071152373_UpdateContract.designer.cs">
+      <DependentUpon>202306071152373_UpdateContract.cs</DependentUpon>
+    </Compile>
     <Compile Include="Models\InspectionCard.cs" />
     <Compile Include="Services\ReportService.cs" />
     <Compile Include="Windows\InspectionCardsWindow.xaml.cs">
@@ -342,6 +346,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202306062105076_AddInspectionCard.resx">
       <DependentUpon>202306062105076_AddInspectionCard.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202306071152373_UpdateContract.resx">
+      <DependentUpon>202306071152373_UpdateContract.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
