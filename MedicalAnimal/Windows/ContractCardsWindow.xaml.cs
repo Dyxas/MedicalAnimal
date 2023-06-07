@@ -51,7 +51,7 @@ namespace MedicalAnimal
             {
                 return;
             }
-            if (controller.GetList("").Count == ContractCards.Count)
+            if (controller.GetList("").Any(c => c.Id == card.Id && card.Id != 0))
             {
                 controller.Edit(card);
             }
@@ -72,7 +72,10 @@ namespace MedicalAnimal
                     ContractCardsGrid.SelectedItems.CopyTo(items, 0);
                     foreach (var item in items)
                     {
-                        controller.Delete(item as ContractCard);
+                        if (item.Id != 0)
+                        {
+                            controller.Delete(item as ContractCard);
+                        }
                     }
                 }
                 e.Handled = true;

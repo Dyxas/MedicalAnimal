@@ -70,6 +70,8 @@
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Город" Binding="{Binding City, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Категория" Binding="{Binding Category, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Признаки владельца" Binding="{Binding OwnerTreats, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Повадки питомца" Binding="{Binding UniqueTreats, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Пол" Binding="{Binding Sex, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTemplateColumn Header="Дата рождения" Width="120">
                     <DataGridTemplateColumn.CellTemplate>
