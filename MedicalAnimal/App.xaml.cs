@@ -28,18 +28,19 @@ namespace MedicalAnimal
                 services.AddTransient<ICard<OrganizationCard>, OrganizationCardController>(e => new OrganizationCardController(e.GetService<DatabaseContext>()));
                 services.AddTransient<ICard<ContractCard>, ContractCardController>(e => new ContractCardController(e.GetService<DatabaseContext>()));
                 services.AddTransient<ICard<InspectionCard>, InspectionCardController>(e => new InspectionCardController(e.GetService<DatabaseContext>()));
-                services.AddSingleton<MainWindow>();
+                services.AddSingleton<MainWindow>(e => new MainWindow(e.GetService<UserController>()));
                 services.AddSingleton<AuthorizationWindow>();
                 services.AddSingleton<InspectionCardsWindow>();
-                services.AddSingleton<AnimalCardsWindow>();
-                services.AddSingleton<OrganizationCardsWindow>();
-                services.AddSingleton<ContractCardsWindow>();
+                services.AddSingleton<AnimalCardsWindow>(e => new AnimalCardsWindow(e.GetService<ICard<AnimalCard>>(), e.GetService<UserController>()));
+                services.AddSingleton<OrganizationCardsWindow>(e => new OrganizationCardsWindow(e.GetService<ICard<OrganizationCard>>(), e.GetService<UserController>()));
+                services.AddSingleton<ContractCardsWindow>(e => new ContractCardsWindow(e.GetService<ICard<ContractCard>>(), e.GetService<UserController>()));
                 services.AddSingleton<UserController>();
             }).Build();
             serviceProvider = host.Services;
             var app = serviceProvider.GetService<App>();
             app.InitializeComponent();
             app.Run();
+
         }
         private void OnStartup(object sender, StartupEventArgs e)
         {

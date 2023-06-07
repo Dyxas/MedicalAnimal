@@ -14,7 +14,7 @@ namespace MedicalAnimal
     {
         public DatabaseContext() : base("DbConnectionString")
         {
-            Database.SetInitializer<DatabaseContext>(new DropCreateDatabaseIfModelChanges<DatabaseContext>());
+            Database.SetInitializer<DatabaseContext>(new DropCreateDatabaseAlways<DatabaseContext>());
         }
 
         public DbSet<Models.ModelCardExample> CardsExample { get; set; }

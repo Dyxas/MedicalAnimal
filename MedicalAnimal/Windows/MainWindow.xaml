@@ -8,9 +8,9 @@
         Title="MainWindow" Height="450" Width="800">
     <StackPanel>
         <StackPanel Orientation="Horizontal">
-            <Button Content="Животные" Click="OnAnimalClick"></Button>
-            <Button Content="Организации" Click="OnOrganizationClick"></Button>
-            <Button Content="Контракты" Click="OnContractsClick"></Button>
+            <Button Content="Животные" Click="OnAnimalClick" x:Name="AnimalButton"></Button>
+            <Button Content="Организации" Click="OnOrganizationClick" x:Name="OrganizationButton"></Button>
+            <Button Content="Контракты" Click="OnContractsClick" x:Name="ContractButton"></Button>
             <Button Content="Запись об осмотре" Click="OnInspectionClick"></Button>
         </StackPanel>
         <Frame x:Name="CardsFrame" Content="Frame" NavigationUIVisibility="Hidden">
