@@ -6,7 +6,6 @@ using Microsoft.Extensions.Hosting;
 using OfficeOpenXml;
 using System;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace MedicalAnimal
 {
@@ -30,11 +29,11 @@ namespace MedicalAnimal
                 services.AddTransient<ICard<InspectionCard>, InspectionCardController>(e => new InspectionCardController(e.GetService<DatabaseContext>()));
                 services.AddSingleton<MainWindow>();
                 services.AddSingleton<AuthorizationWindow>();
-                services.AddSingleton<InspectionCardsWindow>();
                 services.AddSingleton<AnimalCardsWindow>();
                 services.AddSingleton<OrganizationCardsWindow>();
                 services.AddSingleton<ContractCardsWindow>();
                 services.AddSingleton<UserController>();
+                services.AddSingleton<InspectionCardsWindow>();
             }).Build();
             serviceProvider = host.Services;
             var app = serviceProvider.GetService<App>();

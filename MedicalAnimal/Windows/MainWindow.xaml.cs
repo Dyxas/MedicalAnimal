@@ -1,4 +1,5 @@
-﻿using MedicalAnimal.Models;
+﻿using MedicalAnimal.Controllers;
+using MedicalAnimal.Models;
 using MedicalAnimal.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using System;
@@ -27,6 +28,8 @@ namespace MedicalAnimal
         {
             InitializeComponent();
             CardsFrame.Navigate(App.serviceProvider.GetService<AnimalCardsWindow>());
+            App.serviceProvider.GetService<OrganizationCardsWindow>().BeginInit();
+            App.serviceProvider.GetService<ContractCardsWindow>().BeginInit();
         }
 
         private void OnAnimalClick(object sender, RoutedEventArgs e)
