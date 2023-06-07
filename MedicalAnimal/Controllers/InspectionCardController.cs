@@ -1,4 +1,5 @@
-﻿using MedicalAnimal.Models;
+﻿using MedicalAnimal.DTO;
+using MedicalAnimal.Models;
 using Microsoft.Win32;
 using OfficeOpenXml;
 using System;
@@ -6,8 +7,6 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Data.Entity;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MedicalAnimal.Controllers
 {
@@ -42,7 +41,10 @@ namespace MedicalAnimal.Controllers
         {
             try
             {
-                var rows = GetList("");
+                var rows = GetList("").ToList().Select(e =>
+                {
+                    return new InspectionDTO(e);
+                });
                 using (var package = new ExcelPackage())
                 {
                     var worksheet = package.Workbook.Worksheets.Add("Инспекция");
@@ -54,13 +56,14 @@ namespace MedicalAnimal.Controllers
                     };
                     saveFileDialog.ShowDialog();
                     var path = saveFileDialog.FileName;
-                    if(path != null)
+                    if (path != null)
                     {
                         package.SaveAs(path);
                     }
                 }
-            } catch (Exception ex) { }
-            
+            }
+            catch (Exception ex) { }
+
         }
 
         public InspectionCard Get(int id)

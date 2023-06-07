@@ -1,4 +1,5 @@
 ﻿using MedicalAnimal.Controllers;
+using MedicalAnimal.DTO;
 using MedicalAnimal.Models;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
@@ -20,7 +21,7 @@ namespace MedicalAnimal.Services
             using (var package = new ExcelPackage())
             {
                 var worksheet = package.Workbook.Worksheets.Add("Данные по осмотру");
-                worksheet.Cells[1, 1].LoadFromCollection(cards, true);
+                worksheet.Cells[1, 1].LoadFromCollection(cards.Select(e => new InspectionDTO(e)), true);
                 var saveFileDialog = new SaveFileDialog
                 {
                     DefaultExt = "xlsx",
