@@ -72,7 +72,7 @@ namespace MedicalAnimal.Controllers
 
         public List<InspectionCard> GetList(string filter)
         {
-            return db.InspectionCards.ToList();
+            return db.InspectionCards.Local.ToList();
         }
 
         public ObservableCollection<InspectionCard> GetObservableList(string filter)
