@@ -33,7 +33,7 @@ namespace MedicalAnimal.Controllers
 
         public void Edit(ContractCard card)
         {
-            db.ContractCards.Attach(card);
+            var cattachedard = db.ContractCards.Attach(card);
             db.Entry(card).State = EntityState.Modified;
             db.SaveChanges();
         }

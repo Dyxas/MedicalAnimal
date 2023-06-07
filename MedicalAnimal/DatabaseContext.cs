@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MedicalAnimal.Models;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -24,5 +25,11 @@ namespace MedicalAnimal
         public DbSet<Models.User> Users { get; set; }
         public DbSet<DTO.RoleDTO> Roles { get; set; }
         public DbSet<Models.InspectionCard> InspectionCards { get; set; }
+
+        //protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        //{
+        //    //modelBuilder.Entity<ContractCard>()
+        //    //base.OnModelCreating(modelBuilder);
+        //}
     }
 }

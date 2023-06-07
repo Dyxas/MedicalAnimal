@@ -11,5 +11,6 @@ namespace MedicalAnimal.Models
         public string Address { get; set; }
         public string OrganizationType { get; set; }
         public string OwnerType { get; set; }
+        public string City { get; set; }
     }
 }

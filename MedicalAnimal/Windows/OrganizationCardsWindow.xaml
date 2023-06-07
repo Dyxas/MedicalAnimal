@@ -69,9 +69,10 @@
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="ИНН" Binding="{Binding Inn, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="КПП" Binding="{Binding Kpp, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Город" Binding="{Binding City, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="Адрес" Binding="{Binding Address, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Тип" Binding="{Binding OrganizationType, UpdateSourceTrigger=PropertyChanged}"/>
-                <DataGridTextColumn Header="Владелец" Binding="{Binding OwnerType, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Тип организации" Binding="{Binding OrganizationType, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="Физ./Юр. лицо" Binding="{Binding OwnerType, UpdateSourceTrigger=PropertyChanged}"/>
             </DataGrid.Columns>
         </DataGrid>
     </StackPanel>
