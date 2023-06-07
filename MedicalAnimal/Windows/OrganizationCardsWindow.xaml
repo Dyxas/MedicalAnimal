@@ -65,7 +65,7 @@
                 </Style>
             </DataGrid.Resources>
             <DataGrid.Columns>
-                <DataGridTextColumn Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}"/>
+                <DataGridTextColumn Header="#" Binding="{Binding Id, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True"/>
                 <DataGridTextColumn Header="Имя" Binding="{Binding Name, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="ИНН" Binding="{Binding Inn, UpdateSourceTrigger=PropertyChanged}"/>
                 <DataGridTextColumn Header="КПП" Binding="{Binding Kpp, UpdateSourceTrigger=PropertyChanged}"/>
