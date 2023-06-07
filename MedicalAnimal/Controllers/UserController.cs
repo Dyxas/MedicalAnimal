@@ -211,6 +211,27 @@ namespace MedicalAnimal.Controllers
                 Executor = "Квазис"
             });
 
+            db.InspectionCards.Add(new InspectionCard
+            {
+                Animal = db.AnimalCards.Local.First(),
+                NeedHeal = true,
+                Skin = "Dsd",
+                CompletedOperations = "dsds",
+                Contract = db.ContractCards.Local.First(),
+                VetClinic = db.OrganizationCards.Local.First(),
+                Date = DateTime.Now
+            });
+            db.InspectionCards.Add(new InspectionCard
+            {
+                Animal = db.AnimalCards.Local.First(),
+                NeedHeal = false,
+                Skin = "Dsddsa",
+                CompletedOperations = "dsds",
+                Contract = db.ContractCards.Local.First(),
+                VetClinic = db.OrganizationCards.Local.First(),
+                Date = DateTime.Now
+            });
+
             db.SaveChanges();
         }
 

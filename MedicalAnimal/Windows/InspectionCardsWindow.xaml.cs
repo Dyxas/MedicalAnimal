@@ -3,6 +3,7 @@ using MedicalAnimal.Models;
 using MedicalAnimal.Services;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.Linq;
@@ -71,10 +72,7 @@ namespace MedicalAnimal
         {
             InspectionCards.Clear();
             var needHelp = TextBoxNeedHelp.IsChecked;
-            var list = controller.GetList("").Where(item =>
-            {
-                return item.NeedHeal == needHelp;
-            });
+            var list = controller.GetList("").Where(item => item.NeedHeal == needHelp);
             foreach (var item in list)
             {
                 InspectionCards.Add(item);
@@ -83,7 +81,6 @@ namespace MedicalAnimal
 
         private void OnResetFilter(object sender, RoutedEventArgs e)
         {
-
             InspectionCards.Clear();
             var list = controller.GetList("");
             foreach (var item in list)
